@@ -16,7 +16,7 @@ public class ProductRepository {
         if (product.getProductId() == null) {
             product.setProductId(UUID.randomUUID().toString());
         }
-
+      
         if (product.getProductName() == null || product.getProductName().trim().isEmpty()) {
             product.setProductName("Product name is empty");
         }

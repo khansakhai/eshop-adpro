@@ -64,4 +64,90 @@ class ProductRepositoryTest {
         assertEquals(product2.getProductId(), savedProduct.getProductId());
         assertFalse(productIterator.hasNext());
     }
+
+    @Test
+    void testCreateAndEdit() {
+        Product product = new Product();
+        product.setProductId("abcdefghijk1234567890");
+        product.setProductName("Bunga Lily");
+        product.setProductQuantity(75);
+        productRepository.create(product);
+
+        Product updatedProduct = new Product();
+        updatedProduct.setProductId("abcdefghijk1234567890");
+        updatedProduct.setProductName("Bunga Lily Updated");
+        updatedProduct.setProductQuantity(150);
+        productRepository.edit(updatedProduct);
+
+        Iterator<Product> productIterator = productRepository.findAll();
+        Product savedProduct = productIterator.next();
+        assertEquals(updatedProduct.getProductName(), savedProduct.getProductName());
+        assertEquals(updatedProduct.getProductQuantity(), savedProduct.getProductQuantity());
+    }
+
+    @Test
+    void testEditNonExistentProduct() {
+        Product product = new Product();
+        product.setProductId("1234567890abcdefghijk");
+        product.setProductName("Buku Novel");
+        product.setProductQuantity(170);
+
+        Product editedProduct = productRepository.edit(product);
+        assertNull(editedProduct);
+    }
+
+    @Test
+    void testEditProductWithNullId() {
+        Product product = new Product();
+        product.setProductId(null);
+        product.setProductName("Benang Rajut");
+        product.setProductQuantity(10);
+
+        Product editedProduct = productRepository.edit(product);
+        assertNull(editedProduct);
+    }
+
+    @Test
+    void testCreateAndDelete() {
+        Product product = new Product();
+        product.setProductId("qwertyuiop123");
+        product.setProductName("Lilin Aromaterapi");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        Iterator<Product> productIterator = productRepository.findAll();
+        assertTrue(productIterator.hasNext());
+        productRepository.delete("qwertyuiop123");
+        productIterator = productRepository.findAll();
+        assertFalse(productIterator.hasNext());
+    }
+
+    @Test
+    void testDeleteNonexistentProduct() {
+        Product product = new Product();
+        product.setProductId("123qwertyuiop");
+        product.setProductName("Perangko");
+        product.setProductQuantity(65);
+
+        boolean isDeleted = productRepository.delete(product.getProductId());
+        assertFalse(isDeleted);
+    }
+
+    @Test
+    void testEditAndDeleteProduct() {
+        Product product = new Product();
+        product.setProductId("asdfghjkl12345");
+        product.setProductName("Buah Stroberi");
+        product.setProductQuantity(30);
+        productRepository.create(product);
+
+        Product updatedProduct = new Product();
+        updatedProduct.setProductId("asdfghjkl12345");
+        updatedProduct.setProductName("Buah Stroberi Edited");
+        updatedProduct.setProductQuantity(60);
+        productRepository.edit(updatedProduct);
+
+        boolean isDeleted = productRepository.delete("asdfghjkl12345");
+        assertTrue(isDeleted);
+    }
 }
