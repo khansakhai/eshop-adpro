@@ -77,4 +77,80 @@ class EditProductFunctionalTest {
         Assertions.assertTrue(pageSource.contains("Updated Product"));
         Assertions.assertTrue(pageSource.contains("20"));
     }
+
+    @Test
+    void cancelEditTest(ChromeDriver driver) throws Exception {
+        driver.get(baseUrl + "/product/create");
+        driver.findElement(By.id("nameInput")).sendKeys("Initial Product");
+        driver.findElement(By.id("quantityInput")).sendKeys("10");
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
+
+        driver.findElement(By.linkText("Edit")).click();
+        driver.findElement(By.linkText("Cancel")).click();
+
+        String currentUrl = driver.getCurrentUrl();
+        Assertions.assertTrue(currentUrl.endsWith("/product/list"));
+
+        String pageSource = driver.getPageSource();
+        Assertions.assertTrue(pageSource.contains("Initial Product"));
+        Assertions.assertTrue(pageSource.contains("10"));
+    }
+
+    @Test
+    void editProductWithEmptyNameTest(ChromeDriver driver) throws Exception {
+        driver.get(baseUrl + "/product/create");
+        driver.findElement(By.id("nameInput")).sendKeys("Initial Product");
+        driver.findElement(By.id("quantityInput")).sendKeys("10");
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
+
+        driver.findElement(By.linkText("Edit")).click();
+        driver.findElement(By.id("nameInput")).clear();  // Set empty name
+        driver.findElement(By.id("quantityInput")).clear();
+        driver.findElement(By.id("quantityInput")).sendKeys("15");
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
+
+        String pageSource = driver.getPageSource();
+        Assertions.assertTrue(pageSource.contains("Product name is empty"));
+    }
+
+    @Test
+    void editProductWithNegativeQuantityTest(ChromeDriver driver) throws Exception {
+        driver.get(baseUrl + "/product/create");
+        driver.findElement(By.id("nameInput")).sendKeys("Initial Product");
+        driver.findElement(By.id("quantityInput")).sendKeys("10");
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
+
+        driver.findElement(By.linkText("Edit")).click();
+        driver.findElement(By.id("nameInput")).clear();
+        driver.findElement(By.id("nameInput")).sendKeys("Updated Product");
+        driver.findElement(By.id("quantityInput")).clear();
+        driver.findElement(By.id("quantityInput")).sendKeys("-5");
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
+
+        String pageSource = driver.getPageSource();
+        Assertions.assertTrue(pageSource.contains("Updated Product"));
+        Assertions.assertTrue(pageSource.contains("0")); // Quantity should be set to 0
+    }
+
+    @Test
+    void editProductWithSameValuesTest(ChromeDriver driver) throws Exception {
+        driver.get(baseUrl + "/product/create");
+        String initialName = "Test Product";
+        String initialQuantity = "10";
+
+        driver.findElement(By.id("nameInput")).sendKeys(initialName);
+        driver.findElement(By.id("quantityInput")).sendKeys(initialQuantity);
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
+
+        driver.findElement(By.linkText("Edit")).click();
+        driver.findElement(By.id("nameInput")).clear();
+        driver.findElement(By.id("nameInput")).sendKeys(initialName);
+        driver.findElement(By.id("quantityInput")).clear();
+        driver.findElement(By.id("quantityInput")).sendKeys(initialQuantity);
+        driver.findElement(By.cssSelector("button[type='submit']")).click();
+
+        String pageSource = driver.getPageSource();
+        Assertions.assertTrue(pageSource.contains(initialName));
+        Assertions.assertTrue(pageSource.contains(initialQuantity));
+    }
 }
