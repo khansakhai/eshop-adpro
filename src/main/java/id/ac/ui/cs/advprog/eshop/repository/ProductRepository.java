@@ -16,6 +16,15 @@ public class ProductRepository {
         if (product.getProductId() == null) {
             product.setProductId(UUID.randomUUID().toString());
         }
+      
+        if (product.getProductName() == null || product.getProductName().trim().isEmpty()) {
+            product.setProductName("Product name is empty");
+        }
+
+        if (product.getProductQuantity() < 0) {
+            product.setProductQuantity(0);
+        }
+
         productData.add(product);
         return product;
     }
@@ -33,6 +42,14 @@ public class ProductRepository {
 
     public Product edit(Product editedProduct) {
         if (editedProduct.getProductId() == null) return null;
+
+        if (editedProduct.getProductName() == null || editedProduct.getProductName().trim().isEmpty()) {
+            editedProduct.setProductName("Product name is empty");
+        }
+
+        if (editedProduct.getProductQuantity() < 0) {
+            editedProduct.setProductQuantity(0);
+        }
 
         for (int i = 0; i < productData.size(); i++) {
             if (productData.get(i).getProductId().equals(editedProduct.getProductId())) {
