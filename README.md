@@ -12,23 +12,23 @@ Berikut merupakan prinsip clean code dan praktik secure coding yang saya terapka
 
 1. **Penamaan Variabel yang Jelas dan Bermakna**
 
-Variabel/fungsi/class yang digunakan memiliki nama deskriptif, seperti editedProduct, findById, productName, sehingga kode lebih mudah dipahami.
+    Variabel/fungsi/class yang digunakan memiliki nama deskriptif, seperti editedProduct, findById, productName, sehingga kode lebih mudah dipahami.
 
 2. **Penggunaan Fungsi yang Efisien**
 
-Setiap fungsi dibuat untuk menangani satu tugas utama (Single Responsibility Principle). Misalnya, `edit()` dibuat untuk memperbarui/meng-edit data produk.
+    Setiap fungsi dibuat untuk menangani satu tugas utama (Single Responsibility Principle). Misalnya, `edit()` dibuat untuk memperbarui/meng-edit data produk.
 
 3. **Penulisan Comment yang Tidak Berlebihan**
 
-Karena variabel dan fungsi sudah diberi nama yang jelas dan mudah untuk dipahami, sehingga kode yang ditulis tidak memerlukan *comment* yang berlebihan dan kurang penting.
+    Karena variabel dan fungsi sudah diberi nama yang jelas dan mudah untuk dipahami, sehingga kode yang ditulis tidak memerlukan *comment* yang berlebihan dan kurang penting.
 
 4. **Penggunaan UUID sebagai ID Product**
 
-ID produk menggunakan UUID agar memiliki *value* yang unik, sehingga dapat meningkatkan keamanan aplikasi.
+    ID produk menggunakan UUID agar memiliki *value* yang unik, sehingga dapat meningkatkan keamanan aplikasi.
 
 5. **Melakukan Validasi Input**
 
-Input yang diterima harus diperiksa untuk meningkatkan keamanan, seperti memastika productId tidak null, productName tidak kosong, dan productQuantity tidak negatif.
+    Input yang diterima harus diperiksa untuk meningkatkan keamanan, seperti memastika productId tidak null, productName tidak kosong, dan productQuantity tidak negatif.
 
 Saat mengimplementasikan fitur edit dan delete, saya belum menerapkan validasi input dengan baik, sehingga productId bisa berupa null, productName bisa kosong, dan productQuantity bisa berupa angka negatif.
 
