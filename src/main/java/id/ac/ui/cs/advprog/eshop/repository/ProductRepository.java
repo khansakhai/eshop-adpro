@@ -41,7 +41,9 @@ public class ProductRepository {
     }
 
     public Product edit(Product editedProduct) {
-        if (editedProduct.getProductId() == null) return null;
+        if (editedProduct.getProductId() == null) {
+            return null;
+        }
 
         if (editedProduct.getProductName() == null || editedProduct.getProductName().trim().isEmpty()) {
             editedProduct.setProductName("Product name is empty");
