@@ -4,7 +4,7 @@ Advanced Programming (Even Semester 2024/2025) Tutorial
 
 Khansa Khairunisa - 2306152462
 
-Tautan menuju PWS deployment dapat diakses [di sini](https://eshop-adpro-khansakhai.koyeb.app/). *Server Configuration: Port 8081*
+Tautan menuju Koyeb deployment dapat diakses [di sini](https://eshop-adpro-khansakhai.koyeb.app/). *Server Configuration: Port 8081*
 
 ### Daftar Isi
 
