@@ -10,6 +10,7 @@ Tautan menuju Koyeb deployment dapat diakses [di sini](https://eshop-adpro-khans
 
 - [Module 1 Tutorial: Coding Standards](#module-1-tutorial)
 - [Module 2 Tutorial: Implementing CI/CD using Gradle & GitHub Actions](#module-2-tutorial)
+- [Module 3 Tutorial: OO Principles & MaintainabilityURL](#module-3-tutorial)
 
 ---
 
@@ -76,3 +77,42 @@ Berikut adalah isu kualitas kode yang saya perbaiki selama latihan ini dan strat
 >Look at your CI/CD workflows (GitHub)/pipelines (GitLab). Do you think the current implementation has met the definition of Continuous Integration and Continuous Deployment? Explain the reasons (minimum 3 sentences)!
 
 Alur kerja CI/CD yang digunakan telah memenuhi konsep Continuous Integration (CI) dan Continuous Deployment (CD) karena mencakup pengujian otomatis, analisis kode, dan deployment langsung ke Koyeb. Workflow `ci.yml` menjalankan unit test setiap kali ada push atau pull request, sehingga perubahan kode bisa langsung dicek agar tidak merusak fungsionalitas yang ada. Selain itu, workflow `pmd.yml` memastikan kualitas kode tetap terjaga dengan menjalankan analisis statis menggunakan PMD, sehingga potensi kesalahan dapat dideteksi lebih awal. Dari sisi keamanan, workflow `scorecard.yml` melakukan analisis otomatis untuk memastikan standar keamanan tetap terjaga, meskipun tidak berperan langsung dalam proses deployment. Setelah semua tahap ini, kode yang telah melewati pengujian dan analisis akan secara otomatis dideploy ke Koyeb, memastikan proses CI/CD berjalan lancar tanpa perlu campur tangan manual.
+
+## Module 3 Tutorial
+
+### Reflection
+
+>Apply the SOLID principles you have learned. You are allowed to modify the source code according to the principles you want to implement. Please answer the following questions:
+
+> 1) Explain what principles you apply to your project!
+
+Berikut adalah prinsip-prinsip SOLID yang saya terapkan dalam Proyek ini.
+
+1. **Single Responsibility Principle (SRP)**
+
+Saya memisahkan class `CarController` dari class `ProductController` karena keduanya memiliki tanggung jawab yang berbeda. `ProductController` menangani operasi umum untuk produk, sedangkan `CarController` khusus untuk mengelola data mobil. Dengan pemisahan ini, setiap controller hanya fokus pada satu tanggung jawab, sehingga kode lebih terorganisir dan mudah dikelola.
+
+2. **Open/Closed Principle (OCP)**
+
+`CarService` dibuat sebagai interface, sehingga memungkinkan penambahan implementasi baru di masa depan tanpa perlu memodifikasi kode `CarController` yang sudah ada.
+
+3. **Liskov Substitution Principle (LSP)**
+
+Sebelumnya, `CarController` merupakan subclass dari `ProductController` , padahal keduanya memiliki perilaku yang berbeda. `CarController` tidak dapat sepenuhnya menggantikan `ProductController` tanpa mengubah perilaku yang diharapkan.
+Untuk itu, saya menghapus extends dari `CarController` dan membuat `CarController` menjadi class yang berdiri sendiri di file yang berbeda.
+
+4. **Interface Segregation Principle (ISP)**
+
+Ini sudah diterapkan pada `CarService`. Interface ini sudah fokus pada satu hal, yaitu CRUD (*Create*, *Read*, *Update*, *Delete*) untuk `Car`, sehingga tidak perlu dipisah lagi.
+
+5. **Dependency Inversion Principle (DIP)**
+
+Sebelumnya, `CarController` bergantung langsung pada `CarServiceImpl`  yang tidak sesuai dengan prinsip desain yang baik. Seharusnya, `CarController` bergantung pada abstraksi, yaitu interface `CarService`, bukan pada implementasi spesifiknya. Untuk memperbaikinya, saya mengubah tipe variabel `carService` di `CarController`.
+
+> 2) Explain the advantages of applying SOLID principles to your project with examples.
+
+Menerapkan prinsip SOLID pada proyek membantu meningkatkan keterbacaan, fleksibilitas, dan pemeliharaan kode. Contohnya, dengan menerapkan Single Responsibility Principle (SRP), saya memisahkan `CarController` dari `ProductController`. Sebelumnya, `CarController` merupakan subclass dari `ProductController`, padahal keduanya memiliki tanggung jawab yang berbeda—`ProductController` menangani produk secara umum, sedangkan `CarController` fokus pada pengelolaan data mobil. Dengan pemisahan ini, setiap controller hanya menangani tugas spesifiknya, sehingga kode menjadi lebih terstruktur, lebih mudah dipahami, dan tidak perlu mengalami perubahan besar jika ada pembaruan pada fitur produk atau mobil.
+
+> 3) Explain the disadvantages of not applying SOLID principles to your project with examples.
+
+Tidak menerapkan SOLID dalam proyek dapat menyebabkan kode menjadi sulit dipahami, sulit diperluas, dan lebih rentan terhadap kesalahan. Tanpa prinsip-prinsip ini, kode cenderung memiliki banyak ketergantungan dan sulit untuk dimodifikasi tanpa mempengaruhi bagian lain dari sistem. Misalnya, tanpa menerapkan Single Responsibility Principle (SRP), `CarController` sebelumnya diwarisi dari `ProductController`, meskipun keduanya memiliki tanggung jawab yang berbeda. Akibatnya, setiap perubahan pada `ProductController` dapat berdampak langsung pada `CarController`, meskipun fitur yang diubah tidak berhubungan dengan mobil. Hal ini membuat kode lebih sulit diuji, lebih kompleks untuk dipelihara, dan meningkatkan risiko bug saat ada pembaruan atau penambahan fitur.
