@@ -90,24 +90,23 @@ Berikut adalah prinsip-prinsip SOLID yang saya terapkan dalam Proyek ini.
 
 1. **Single Responsibility Principle (SRP)**
 
-Saya memisahkan class `CarController` dari class `ProductController` karena keduanya memiliki tanggung jawab yang berbeda. `ProductController` menangani operasi umum untuk produk, sedangkan `CarController` khusus untuk mengelola data mobil. Dengan pemisahan ini, setiap controller hanya fokus pada satu tanggung jawab, sehingga kode lebih terorganisir dan mudah dikelola.
+   Saya memisahkan class `CarController` dari class `ProductController` karena keduanya memiliki tanggung jawab yang berbeda. `ProductController` menangani operasi umum untuk produk, sedangkan `CarController` khusus untuk mengelola data mobil. Dengan pemisahan ini, setiap controller hanya fokus pada satu tanggung jawab, sehingga kode lebih terorganisir dan mudah dikelola.
 
 2. **Open/Closed Principle (OCP)**
 
-`CarService` dibuat sebagai interface, sehingga memungkinkan penambahan implementasi baru di masa depan tanpa perlu memodifikasi kode `CarController` yang sudah ada.
+   `CarService` dibuat sebagai interface, sehingga memungkinkan penambahan implementasi baru di masa depan tanpa perlu memodifikasi kode `CarController` yang sudah ada.
 
 3. **Liskov Substitution Principle (LSP)**
 
-Sebelumnya, `CarController` merupakan subclass dari `ProductController` , padahal keduanya memiliki perilaku yang berbeda. `CarController` tidak dapat sepenuhnya menggantikan `ProductController` tanpa mengubah perilaku yang diharapkan.
-Untuk itu, saya menghapus extends dari `CarController` dan membuat `CarController` menjadi class yang berdiri sendiri di file yang berbeda.
+   Sebelumnya, `CarController` merupakan subclass dari `ProductController` , padahal keduanya memiliki perilaku yang berbeda. `CarController` tidak dapat sepenuhnya menggantikan `ProductController` tanpa mengubah perilaku yang diharapkan. Untuk itu, saya menghapus extends dari `CarController` dan membuat `CarController` menjadi class yang berdiri sendiri di file yang berbeda.
 
 4. **Interface Segregation Principle (ISP)**
 
-Ini sudah diterapkan pada `CarService`. Interface ini sudah fokus pada satu hal, yaitu CRUD (*Create*, *Read*, *Update*, *Delete*) untuk `Car`, sehingga tidak perlu dipisah lagi.
+   Ini sudah diterapkan pada `CarService`. Interface ini sudah fokus pada satu hal, yaitu CRUD (*Create*, *Read*, *Update*, *Delete*) untuk `Car`, sehingga tidak perlu dipisah lagi.
 
 5. **Dependency Inversion Principle (DIP)**
 
-Sebelumnya, `CarController` bergantung langsung pada `CarServiceImpl`  yang tidak sesuai dengan prinsip desain yang baik. Seharusnya, `CarController` bergantung pada abstraksi, yaitu interface `CarService`, bukan pada implementasi spesifiknya. Untuk memperbaikinya, saya mengubah tipe variabel `carService` di `CarController`.
+   Sebelumnya, `CarController` bergantung langsung pada `CarServiceImpl`  yang tidak sesuai dengan prinsip desain yang baik. Seharusnya, `CarController` bergantung pada abstraksi, yaitu interface `CarService`, bukan pada implementasi spesifiknya. Untuk memperbaikinya, saya mengubah tipe variabel `carService` di `CarController`.
 
 > 2) Explain the advantages of applying SOLID principles to your project with examples.
 
