@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import lombok.Setter;
 import lombok.Getter;
 import lombok.Builder;
@@ -13,6 +14,7 @@ public class Payment {
     String id;
     String method;
     String status;
+    @Setter
     Map<String, String> paymentData;
 
     public Payment(String id, String method, String status, Map<String, String> paymentData) {
@@ -20,6 +22,10 @@ public class Payment {
         this.paymentData = paymentData;
         this.setStatus(status);
         this.setMethod(method);
+    }
+
+    public Payment(String id, String method, Map<String, String> paymentData) {
+        this(id, method, PaymentStatus.PENDING.getValue(), paymentData);
     }
 
     public void setStatus(String status) {
