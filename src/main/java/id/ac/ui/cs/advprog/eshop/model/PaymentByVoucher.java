@@ -4,8 +4,7 @@ import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 
 import java.util.Map;
 
-class PaymentByVoucher extends Payment{
-
+public class PaymentByVoucher extends Payment{
     public PaymentByVoucher(String id, String method, String status, Map<String, String> paymentData) {
         super(id, method, status, paymentData);
     }
