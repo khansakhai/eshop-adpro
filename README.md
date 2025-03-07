@@ -11,6 +11,7 @@ Tautan menuju Koyeb deployment dapat diakses [di sini](https://eshop-adpro-khans
 - [Module 1 Tutorial: Coding Standards](#module-1-tutorial)
 - [Module 2 Tutorial: Implementing CI/CD using Gradle & GitHub Actions](#module-2-tutorial)
 - [Module 3 Tutorial: OO Principles & MaintainabilityURL](#module-3-tutorial)
+- [Module 4 Tutorial: TDD & Refactoring](#module-4-tutorial)
 
 ---
 
@@ -115,3 +116,15 @@ Menerapkan prinsip SOLID pada proyek membantu meningkatkan keterbacaan, fleksibi
 > 3) Explain the disadvantages of not applying SOLID principles to your project with examples.
 
 Tidak menerapkan SOLID dalam proyek dapat menyebabkan kode menjadi sulit dipahami, sulit diperluas, dan lebih rentan terhadap kesalahan. Tanpa prinsip-prinsip ini, kode cenderung memiliki banyak ketergantungan dan sulit untuk dimodifikasi tanpa mempengaruhi bagian lain dari sistem. Misalnya, tanpa menerapkan Single Responsibility Principle (SRP), `CarController` sebelumnya diwarisi dari `ProductController`, meskipun keduanya memiliki tanggung jawab yang berbeda. Akibatnya, setiap perubahan pada `ProductController` dapat berdampak langsung pada `CarController`, meskipun fitur yang diubah tidak berhubungan dengan mobil. Hal ini membuat kode lebih sulit diuji, lebih kompleks untuk dipelihara, dan meningkatkan risiko bug saat ada pembaruan atau penambahan fitur.
+
+## Module 4 Tutorial
+
+### Reflection
+
+>Reflect based on Percival (2017) proposed self-reflective questions (in “Principles and Best Practice of Testing” submodule, chapter “Evaluating Your Testing Objectives”), whether this TDD flow is useful enough for you or not. If not, explain things that you need to do next time you make more tests.
+
+Saya merasa bahwa alur Test-Driven Development (TDD) sangat berguna karena memastikan setiap fitur diuji sejak awal, mengurangi kesalahan, dan menjaga pengembangan tetap terstruktur. Sesuai dengan Percival (2017), metode ini memang membutuhkan waktu lebih banyak di awal karena saya harus menulis tes sebelum mengembangkan fitur. Namun, dalam jangka panjang, TDD justru menghemat waktu karena memungkinkan saya mendeteksi kesalahan sejak awal sebelum kode menjadi lebih kompleks, sehingga mengurangi waktu *debugging* dan perbaikan di kemudian hari. Dengan adanya tes yang dibuat sejak awal, saya dapat menemukan *bug* lebih cepat, menghindari perbaikan besar di tahap akhir, dan lebih percaya diri saat melakukan *refactoring*. Selain itu, TDD juga membantu saya menulis kode yang lebih modular dan fleksibel, sehingga lebih mudah untuk diubah tanpa mengorbankan fungsionalitas lainnya.
+
+>You have created unit tests in Tutorial. Now reflect whether your tests have successfully followed F.I.R.S.T. principle or not. If not, explain things that you need to do the next time you create more tests.
+
+Saya telah mengevaluasi *unit tests* yang saya buat dalam Tutorial dan merasa bahwa penerapan prinsip F.I.R.S.T sebagian besar sudah terpenuhi, meskipun masih ada beberapa aspek yang perlu diperbaiki. Dari segi kecepatan (*Fast*), meskipun saya belum bisa memastikan performanya dalam skala besar dengan ribuan tes, seharusnya pengujian yang saya buat sudah cukup cepat karena tidak terlalu kompleks. Untuk isolasi (*Isolated*), setiap tes berjalan secara independen tanpa saling memengaruhi, sehingga prinsip ini telah diterapkan dengan baik. Keterulangan (*Repeatable*) juga tercapai karena tidak ada ketergantungan pada kondisi lingkungan tertentu, dan data yang digunakan tetap konsisten. Validasi otomatis (*Self-validating*) sudah sesuai karena hasil pengujian dapat langsung diketahui melalui otomatisasi di IntelliJ tanpa perlu pengecekan manual. Namun, dari sisi cakupan menyeluruh (*Thorough*), saya merasa masih ada beberapa skenario yang belum diuji secara maksimal, sehingga ke depannya saya perlu mengalokasikan waktu lebih untuk memastikan semua kemungkinan kasus teruji dengan baik.
